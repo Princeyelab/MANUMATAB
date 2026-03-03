@@ -1,0 +1,13 @@
+class Interview < ApplicationRecord
+  belongs_to :user
+  has_many :chats, dependent: :destroy
+  has_many :messages, through: :chats
+
+  STATUSES = %w[pending active completed].freeze
+
+  validates :job_title, presence: true
+  validates :status, inclusion: { in: STATUSES }
+
+  scope :completed, -> { where(status: "completed") }
+  scope :active,    -> { where(status: "active") }
+end
