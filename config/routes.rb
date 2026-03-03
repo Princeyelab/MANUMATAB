@@ -6,3 +6,7 @@ Rails.application.routes.draw do
     resources :chats, only: [:show]
   end
 end
+
+
+
+
