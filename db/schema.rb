@@ -56,6 +56,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_03_161338) do
     t.text "feedback"
     t.text "job_description"
     t.string "job_title", null: false
+    t.string "job_url"
+    t.text "resume_text"
     t.string "status", default: "pending", null: false
     t.text "summary"
     t.datetime "updated_at", null: false

@@ -8,6 +8,7 @@ class Interview < ApplicationRecord
   STATUSES = %w[pending active completed].freeze
 
   validates :job_title, presence: true
+  validates :job_url, format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]), message: "doit être une URL valide" }, allow_blank: true
   validates :status, inclusion: { in: STATUSES }
 
   scope :completed, -> { where(status: "completed") }

@@ -16,12 +16,12 @@ class InterviewsController < ApplicationController
     
 
     if @interview.save
-      # 2. Création automatique du Chat associé
-      # Puisque Interview has_many :chats, on crée le premier ici
-      @interview.chats.create!
+      @chat = @interview.chats.create!(user: current_user)
+      @interview.update!(status: "active")
 
-      # 3. Redirection vers la "Page 2" (le chat)
-      redirect_to interview_path(@interview), notice: "Préparation de votre coach en cours..."
+      InterviewManagerService.new(@chat).start_interview
+
+      redirect_to interview_path(@interview), notice: "L'entretien a démarré !"
     else
       # Si erreur (ex: job_title vide), on réaffiche la home avec les erreurs
       render "pages/home", status: :unprocessable_entity
