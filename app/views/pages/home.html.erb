@@ -1,7 +1,33 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
-<% if user_signed_in? %>
- Bonjour <%= current_user.email %>
-<% else %>
- <%= link_to "Se connecter", new_user_session_path %>
-<% end %>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+      <div class="card shadow border-0 p-4">
+        <% if current_user %>
+          <p class="text-muted mb-4">Connecté en tant que : <strong><%= current_user.email %></strong></p>
+        <% end %>
+
+        <h2 class="text-center mb-5">Nouvelle Simulation</h2>
+
+        <%= simple_form_for @interview do |f| %>
+          <div class="mb-3">
+            <%= f.input :job_title,
+                        label: "Intitulé du poste",
+                        placeholder: "ex: Développeur Ruby on Rails",
+                        input_html: { class: "form-control form-control-lg" } %>
+          </div>
+
+          <div class="mb-4">
+            <%= f.input :job_description,
+                        label: "L'offre d'emploi (Description)",
+                        placeholder: "Copiez l'annonce ici...",
+                        input_html: { class: "form-control", rows: 6 } %>
+          </div>
+
+          <div class="d-grid">
+            <%= f.button :submit, "C'est parti !", class: "btn btn-primary btn-lg py-3 fw-bold" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
