@@ -1,10 +1,19 @@
 class InterviewsController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @interviews = Interview.all
+  end
+
+  def show
+    @interview = Interview.find(params[:id])
+  end
+
   def create
     # 1. On prépare l'entretien lié à l'utilisateur connecté
     @interview = current_user.interviews.build(interview_params)
     @interview.status = "pending" # On commence en attente
+    
 
     if @interview.save
       @chat = @interview.chats.create!(user: current_user)
@@ -30,6 +39,6 @@ class InterviewsController < ApplicationController
 
   def interview_params
     # On autorise les champs du formulaire + le CV si tu l'as ajouté
-    params.require(:interview).permit(:job_title, :job_url)
+    params.require(:interview).permit(:job_title, :job_description, :cv)
   end
 end
