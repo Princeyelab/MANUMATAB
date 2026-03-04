@@ -3,6 +3,8 @@ class Interview < ApplicationRecord
   has_many :chats, dependent: :destroy
   has_many :messages, through: :chats
 
+  has_one_attached :cv
+
   STATUSES = %w[pending active completed].freeze
 
   validates :job_title, presence: true
