@@ -1,35 +1,45 @@
-<div class="container mt-5">
+<div class="container py-4" style="max-width: 800px;">
 
-  <!-- Titre -->
-  <div class="mb-4">
-    <h2><%= @interview.job_title %></h2>
-    <p class="text-muted"><%= @interview.job_description %></p>
-    <hr>
+  <!-- En-tête -->
+  <div class="card border-0 shadow-sm mb-3 p-3">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <h5 class="mb-0 fw-bold"><%= @interview.job_title %></h5>
+        <% if @interview.job_url.present? %>
+          <%= link_to "Voir l'offre", @interview.job_url, target: "_blank", rel: "noopener", class: "small text-muted" %>
+        <% end %>
+      </div>
+      <span class="badge bg-<%= @interview.status == 'active' ? 'success' : 'secondary' %>">
+        <%= @interview.status %>
+      </span>
+    </div>
   </div>
 
-  <!-- Zone des messages -->
-  <div class="card">
-    <div class="card-body" style="height: 400px; overflow-y: scroll;" id="messages">
+  <!-- Zone messages -->
+  <div class="card border-0 shadow-sm mb-3">
+    <div class="card-body p-3" id="messages" style="height: 480px; overflow-y: auto;">
+
+      <% if @messages.empty? %>
+        <div class="text-center text-muted py-5">
+          <p class="mb-1">Votre coach IA est prêt.</p>
+          <p class="small">Envoyez votre premier message pour démarrer la simulation.</p>
+        </div>
+      <% end %>
 
       <% @messages.each do |message| %>
-        <% if message.user == current_user %>
-          <!-- Message utilisateur -->
+        <% if message.role == "user" %>
           <div class="d-flex justify-content-end mb-3">
-            <div class="bg-primary text-white p-3 rounded" style="max-width: 70%;">
-              <%= message.content %>
-              <div class="small text-end mt-1">
-                <%= message.created_at.strftime("%H:%M") %>
-              </div>
+            <div class="p-3 rounded-3 text-white" style="background-color: #0d6efd; max-width: 75%;">
+              <p class="mb-1"><%= message.content %></p>
+              <small class="opacity-75"><%= message.created_at.strftime("%H:%M") %></small>
             </div>
           </div>
-        <% else %>
-          <!-- Message coach / bot -->
+        <% elsif message.role == "assistant" %>
           <div class="d-flex justify-content-start mb-3">
-            <div class="bg-light p-3 rounded border" style="max-width: 70%;">
-              <%= message.content %>
-              <div class="small text-muted mt-1">
-                <%= message.created_at.strftime("%H:%M") %>
-              </div>
+            <div class="p-3 rounded-3 bg-light border" style="max-width: 75%;">
+              <p class="mb-1 fw-semibold text-primary small">Coach IA</p>
+              <p class="mb-1"><%= message.content %></p>
+              <small class="text-muted"><%= message.created_at.strftime("%H:%M") %></small>
             </div>
           </div>
         <% end %>
@@ -38,20 +48,24 @@
     </div>
   </div>
 
-  <!-- Formulaire -->
-  <div class="mt-3">
-    <%= simple_form_for [@chat, @new_message] do |f| %>
-      <div class="input-group">
-        <%= f.input :content,
-                    label: false,
-                    placeholder: "Écrivez votre message...",
-                    input_html: { class: "form-control" } %>
-
-        <button class="btn btn-primary" type="submit">
-          Envoyer
-        </button>
-      </div>
-    <% end %>
-  </div>
+  <!-- Formulaire envoi -->
+  <%= form_with url: interview_chat_messages_path(@interview, @chat), data: { turbo: false } do |f| %>
+    <div class="input-group">
+      <%= f.text_area :message_content,
+                      id: "message_content",
+                      name: "message[content]",
+                      placeholder: "Votre réponse...",
+                      class: "form-control",
+                      rows: 2,
+                      required: true %>
+      <%= f.submit "Envoyer →", class: "btn btn-primary px-4" %>
+    </div>
+  <% end %>
 
 </div>
+
+<script>
+  // Auto-scroll vers le bas à l'arrivée sur la page
+  const messagesDiv = document.getElementById("messages");
+  if (messagesDiv) messagesDiv.scrollTop = messagesDiv.scrollHeight;
+</script>

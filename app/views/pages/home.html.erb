@@ -17,10 +17,10 @@
           </div>
 
           <div class="mb-4">
-            <%= f.input :job_description,
-                        label: "L'offre d'emploi (Description)",
-                        placeholder: "Copiez l'annonce ici...",
-                        input_html: { class: "form-control", rows: 6 } %>
+            <%= f.input :job_url,
+                        label: "Lien vers l'offre d'emploi",
+                        placeholder: "https://www.linkedin.com/jobs/view/...",
+                        input_html: { class: "form-control form-control-lg", type: "url" } %>
           </div>
 
           <div class="d-grid">
