@@ -13,6 +13,7 @@ class InterviewsController < ApplicationController
     # 1. On prépare l'entretien lié à l'utilisateur connecté
     @interview = current_user.interviews.build(interview_params)
     @interview.status = "pending" # On commence en attente
+    
 
     if @interview.save
       # 2. Création automatique du Chat associé
@@ -38,6 +39,6 @@ class InterviewsController < ApplicationController
 
   def interview_params
     # On autorise les champs du formulaire + le CV si tu l'as ajouté
-    params.require(:interview).permit(:job_title, :job_description)
+    params.require(:interview).permit(:job_title, :job_description, :cv)
   end
 end
