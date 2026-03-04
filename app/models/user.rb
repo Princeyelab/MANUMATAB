@@ -8,8 +8,4 @@ class User < ApplicationRecord
   
   has_one_attached :cv_file
   
-  # Optionnel : validation du format
-  validates :cv_file, content_type: ['application/pdf'], 
-                     size: { less_than: 5.megabytes }
-                     
 end

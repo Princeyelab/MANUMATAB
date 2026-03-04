@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_03_105624) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_03_152737) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -28,8 +28,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_03_105624) do
     t.text "feedback"
     t.text "job_description"
     t.string "job_title", null: false
-    t.text "resume_text"
     t.string "status", default: "pending", null: false
+    t.text "summary"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_interviews_on_user_id"
