@@ -2,7 +2,9 @@
   <div class="row justify-content-center">
     <div class="col-12 col-lg-8">
       <div class="card shadow border-0 p-4">
-        <p class="text-muted mb-4">Connecté en tant que : <strong><%= current_user.email %></strong></p>
+        <% if current_user %>
+          <p class="text-muted mb-4">Connecté en tant que : <strong><%= current_user.email %></strong></p>
+        <% end %>
 
         <h2 class="text-center mb-5">Nouvelle Simulation</h2>
 
