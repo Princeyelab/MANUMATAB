@@ -6,11 +6,10 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  
+
   has_one_attached :cv_file
-  
+
   # Optionnel : validation du format
-  validates :cv_file, content_type: ['application/pdf'], 
-                     size: { less_than: 5.megabytes }
-                     
+  # validates :cv_file, content_type: ['application/pdf'],
+  # size: { less_than: 5.megabytes }
 end
