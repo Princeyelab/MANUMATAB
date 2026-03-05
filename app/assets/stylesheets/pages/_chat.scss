@@ -50,9 +50,11 @@
 }
 
 .chat-bubble-user {
-  background: #2563eb;
-  color: white;
-  border-top-right-radius: 6px;
+  background: linear-gradient(135deg, #b2cdef 0%, #a0d3e4 55%, #bae2f0 100%);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 22px rgba(25, 90, 214, 0.22);
+  border-bottom-right-radius: 10px;
 }
 
 .chat-bubble-assistant {

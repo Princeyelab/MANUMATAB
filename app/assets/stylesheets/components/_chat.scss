@@ -59,9 +59,11 @@
 }
 
 .chat-bubble-user {
-  background: #2563eb;
-  color: white;
-  border-bottom-right-radius: 6px;
+  background: linear-gradient(135deg, #b3a5b5 0%, #8b25ad 55%, #c4bec3 100%);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 22px rgba(25, 90, 214, 0.22);
+  border-bottom-right-radius: 10px;
 }
 
 .chat-bubble-assistant {
@@ -69,4 +71,17 @@
   border: 1px solid rgba(0,0,0,0.08);
   color: #111;
   border-bottom-left-radius: 6px;
+}
+
+.ai-badge {
+  background: linear-gradient(135deg, #2d7df6, #0b4dbb);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 8px;
+  margin-left: 6px;
+  vertical-align: middle;
+
+  box-shadow: 0 2px 8px rgba(0,132,255,0.4);
 }
