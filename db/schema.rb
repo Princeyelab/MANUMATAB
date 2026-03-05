@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_03_161338) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_04_104948) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -57,7 +57,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_03_161338) do
     t.text "job_description"
     t.string "job_title", null: false
     t.string "job_url"
-    t.text "resume_text"
     t.string "status", default: "pending", null: false
     t.text "summary"
     t.datetime "updated_at", null: false
