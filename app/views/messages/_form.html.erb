@@ -10,3 +10,8 @@
     <%= f.button :submit, "Envoyer", class: "btn btn-primary" %>
   <% end %>
 </div>
+<%= simple_form_for [challenge, message] do |f| %>
+  <!-- [...] -->
+  <%= f.input :file, as: :file, label: "Upload a file (PDF, image, or audio)" %>
+  <!-- [...] -->
+<% end %>
