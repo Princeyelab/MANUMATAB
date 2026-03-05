@@ -7,6 +7,15 @@
   flex-grow: 0;
 }
 
+.navbar-lewagon .navbar-brand {
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
 .navbar-lewagon .navbar-brand img {
-  width: 40px;
+  height: 150px;
+  width: auto;
+  max-height: none;
+  display: block;
 }
