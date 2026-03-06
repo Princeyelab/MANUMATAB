@@ -1,8 +1,10 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
+  SYSTEM_PROMPT = `Tu est mon assistant de test pour embauche. Tu dois   analyser  CV et lien d offre d 'emploie, me poser des questions afin de vpor si mon profil correspond a cete offre` # rubocop:disable Layout/LineLength
 
   def create
     @chat = current_user.chats.find(params[:chat_id])
+
 
     # ✅ front safe : le user ne choisit pas son role
     @message = @chat.messages.new(content: message_params[:content], role: "user")
@@ -23,6 +25,8 @@ class MessagesController < ApplicationController
 
   private
 
+
+
   def process_file(file)
     if file.content_type == "application/pdf"
       send_question(model: "gemini-2.0-flash", with: { pdf: @message.file.url })
@@ -31,12 +35,6 @@ class MessagesController < ApplicationController
     end
   end
 
-  def send_question(model: "gpt-4.1-2025-04-14", with: {})
-    @ruby_llm_chat = RubyLLM.chat(model: model)
-    build_conversation_history
-    @ruby_llm_chat.with_instructions(instructions)
-    @response = @ruby_llm_chat.ask(@message.content, with: with)
-  end
 
   def message_params
     params.require(:message).permit(:content)
