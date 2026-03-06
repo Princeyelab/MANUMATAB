@@ -23,12 +23,12 @@
                         input_html: { class: "form-control form-control-lg", type: "url" } %>
           </div>
           <div class="mb-4">
-          <%= f.input :cv,
+          <%= f.input :file,
                       as: :file,
                       label: "Ajouter votre CV (PDF)",
                       input_html: { accept: ".pdf,.doc,.docx", class: "form-control" } %>
-          </div>         
-          
+          </div>
+
           <div class="d-grid">
             <%= f.button :submit, "C'est parti !", class: "btn btn-primary btn-lg py-3 fw-bold" %>
           </div>
