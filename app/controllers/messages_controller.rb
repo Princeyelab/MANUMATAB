@@ -29,6 +29,14 @@ class MessagesController < ApplicationController
 
       answer = chat.ask(@message.content)
 
+  def process_file(file)
+    if file.content_type == "application/pdf"
+      send_question(model: "gpt-4.1-2025-04-14", with: { pdf: @message.file.url })
+    elsif file.image?
+      send_question(model: "gpt-4o", with: { image: @message.file.url })
+    end
+  end
+
       @assistant_message = @chat.messages.create!(
         role: "assistant",
         content: answer.content
