@@ -25,11 +25,11 @@
                         input_html: { class: "form-control form-control-lg", type: "url" } %>
           </div>
           <div class="mb-4">
-          <%= f.input :cv,
-                      as: :file,    
-                      label: "Ajouter votre CV (PDF)",
-                      label_html: { class: "highlight-label" },
-                      input_html: { accept: ".pdf,.doc,.docx", class: "form-control" } %>
+          <%= f.input :file,
+            as: :file,
+            label: "Ajouter votre CV (PDF)",
+            label_html: { class: "highlight-label" },
+            input_html: { accept: ".pdf,.doc,.docx", class: "form-control" } %>
           </div>         
           
           <div class="d-grid" style="margin-top: 40px !important;">
