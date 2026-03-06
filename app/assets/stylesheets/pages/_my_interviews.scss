@@ -1,0 +1,32 @@
+.interviews-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.history-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.interview-card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.interview-card h3 {
+  margin-bottom: 10px;
+}
+
+.interview-card a {
+  color: #2c7be5;
+  text-decoration: none;
+}
+
+.interview-card a:hover {
+  text-decoration: underline;
+}

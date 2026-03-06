@@ -1,8 +1,25 @@
+<div class="interviews-container">
 
-<% @interviews.each do |interview| %>
-  <h3><%= interview.job_title %></h3>
-  <% if interview.file.attached? %>
-    <p><%= link_to interview.file.filename, rails_blob_path(interview.file, disposition: "attachment") %>
+  <h2 class="history-title">Historique des simulations</h2>
+
+  <% @interviews.each do |interview| %>
+
+    <div class="interview-card">
+
+      <h3><%= interview.job_title %></h3>
+
+      <% if interview.file.attached? %>
+        <p>
+          <%= link_to interview.file.filename, rails_blob_path(interview.file, disposition: "attachment") %>
+        </p>
+      <% end %>
+
+      <p>
+        <%= link_to "job link", interview.job_url %>
+      </p>
+
+    </div>
+
   <% end %>
-  <p><%= link_to "job link", interview.job_url %></p>
-<% end %>
+
+</div>

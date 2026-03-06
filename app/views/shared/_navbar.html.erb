@@ -15,10 +15,10 @@
 
     <!-- DROITE : Historique + Profil -->
     <div class="navbar-right">
-      <button type="button" class="navbar-action navbar-history-btn">
+      <%= link_to my_interviews_path, class: "navbar-action navbar-history-btn" do %>
         <span class="navbar-icon">☰</span>
         Historique
-      </button>
+      <% end %>
 
       <% if user_signed_in? %>
         <div class="nav-item dropdown">
