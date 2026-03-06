@@ -1,3 +1,15 @@
+<div id="<%= dom_id(chat, :form) %>">
+  <%= simple_form_for([chat, message], html: { class: "d-flex gap-2" }) do |f| %>
+    <div class="flex-grow-1">
+      <%= f.input :content,
+                  label: false,
+                  placeholder: "Écris ton message...",
+                  input_html: { class: "form-control" } %>
+      <%= f.hidden_field :role, value: "user" %>
+    </div>
+    <%= f.button :submit, "Envoyer", class: "btn btn-primary" %>
+  <% end %>
+</div>
 <%= simple_form_for [challenge, message] do |f| %>
   <!-- [...] -->
   <%= f.input :file, as: :file, label: "Upload a file (PDF, image, or audio)" %>

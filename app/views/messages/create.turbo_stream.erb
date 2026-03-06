@@ -1,0 +1,6 @@
+<%= turbo_stream.append "messages", partial: "messages/message", locals: { message: @message } %>
+<%= turbo_stream.append "messages", partial: "messages/message", locals: { message: @assistant_message } %>
+
+<%= turbo_stream.replace dom_id(@chat, :form),
+  partial: "messages/form",
+  locals: { chat: @chat, message: Message.new } %>

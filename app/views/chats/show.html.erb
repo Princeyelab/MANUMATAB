@@ -1,13 +1,28 @@
-<h1>Chatbot</h1>
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
 
-<div>
-  <% @messages.each do |message| %>
-    <p><strong><%= message.role %></strong> : <%= message.content %></p>
-  <% end %>
+      <div class="chat-card">
+        <div class="chat-header">
+          <div>
+            <h1 class="chat-title mb-0">
+              🤖 Dalloway
+              <span class="ai-badge">IA</span>
+              – Coach d’entretien
+            </h1>
+            <div class="chat-subtitle">🟢 En ligne</div>
+          </div>
+        </div>
+
+        <div id="messages" class="chat-messages" data-controller="auto-scroll">
+          <%= render @messages %>
+        </div>
+
+        <div id="<%= dom_id(@chat, :form) %>" class="chat-input">
+          <%= render "messages/form", chat: @chat, message: Message.new %>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
-
-<%= simple_form_for [@chat, @message] do |f| %>
-  <%= f.input :content, label: false, placeholder: "Écris ton message..." %>
-  <%= f.hidden_field :role, value: "user" %>
-  <%= f.button :submit, "Envoyer" %>
-<% end %>
