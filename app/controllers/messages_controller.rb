@@ -1,22 +1,43 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
-  SYSTEM_PROMPT = `Tu est mon assistant de test pour embauche. Tu dois   analyser  CV et lien d offre d 'emploie, me poser des questions afin de vpor si mon profil correspond a cete offre` # rubocop:disable Layout/LineLength
+
+  SYSTEM_PROMPT = "Tu es Dalloway, un coach d’entretien d’embauche utile, clair, bienveillant et structuré. Tu aides l'utilisateur à se préparer à un entretien d'embauche. Tu poses des questions pertinentes, tu aides à reformuler ses réponses, et tu donnes des conseils concrets."
 
   def create
     @chat = current_user.chats.find(params[:chat_id])
+    interview = @chat.interview
 
-
-    # ✅ front safe : le user ne choisit pas son role
-    @message = @chat.messages.new(content: message_params[:content], role: "user")
+    @message = @chat.messages.new(
+      content: message_params[:content],
+      role: "user"
+    )
 
     if @message.save
-      if @message.file.attached?
-        process_file(@message.file) # send question w/ file to the appropriate model
-      else
-        send_question # send question to the model
+      context = build_context(interview)
+
+      chat = RubyLLM.chat do |c|
+        c.system "#{SYSTEM_PROMPT}\n\n#{context}"
+
+        @chat.messages.where.not(id: @message.id).order(:created_at).each do |m|
+          if m.role == "assistant"
+            c.assistant m.content
+          else
+            c.user m.content
+          end
+        end
       end
 
-      redirect_to chat_path(@chat)
+      answer = chat.ask(@message.content)
+
+      @assistant_message = @chat.messages.create!(
+        role: "assistant",
+        content: answer.content
+      )
+
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to chat_path(@chat) }
+      end
     else
       @messages = @chat.messages.order(created_at: :asc)
       render "chats/show", status: :unprocessable_entity
@@ -25,19 +46,22 @@ class MessagesController < ApplicationController
 
   private
 
+  def build_context(interview)
+    <<~TEXT
+      Contexte entretien :
+      - Poste visé : #{interview.job_title.presence || 'non précisé'}
+      - Lien de l’offre : #{interview.job_url.presence || 'non fourni'}
+      - CV uploadé : #{interview.file.attached? ? "oui (nom du fichier : #{interview.file.filename})" : 'non'}
 
-
-  def process_file(file)
-    if file.content_type == "application/pdf"
-      send_question(model: "gemini-2.0-flash", with: { pdf: @message.file.url })
-    elsif file.image?
-      send_question(model: "gpt-4o", with: { image: @message.file.url })
-    end
+      Consigne :
+      - Tu dois te comporter comme un coach d’entretien.
+      - Tu dois aider l’utilisateur à se préparer au poste visé.
+      - Tu peux poser des questions d’entretien, demander des précisions, reformuler ses réponses et donner du feedback.
+      - Si certaines informations manquent, tu dois quand même poursuivre l’entraînement intelligemment.
+    TEXT
   end
-
 
   def message_params
     params.require(:message).permit(:content)
-    params.require(:message).permit(:content, :role, :file)
   end
 end
