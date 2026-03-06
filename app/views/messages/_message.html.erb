@@ -1,0 +1,8 @@
+<% is_user = (message.role == "user") %>
+
+<div class="chat-row <%= is_user ? "chat-row-user" : "chat-row-assistant" %>">
+  <div class="chat-bubble <%= is_user ? "chat-bubble-user" : "chat-bubble-assistant" %>">
+    <div class="chat-role"><%= is_user ? "Vous" : "Assistant" %></div>
+    <div class="chat-content"><%= simple_format(message.content) %></div>
+  </div>
+</div>

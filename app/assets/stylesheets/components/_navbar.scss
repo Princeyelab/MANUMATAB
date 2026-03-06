@@ -1,12 +1,79 @@
+/* NAVBAR */
 .navbar-lewagon {
-  justify-content: space-between;
   background: white;
+  height: 90px; /* navbar légèrement plus haute */
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
 }
 
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
+/* container */
+.navbar-lewagon .container-fluid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+/* LOGO */
+.navbar-lewagon .navbar-logo {
+  height: 155px; /* logo bien visible */
+  width: auto;
+}
+.navbar-logo {
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.2));
+}
+
+/* zone centrale */
+.navbar-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* boutons */
+.navbar-left,
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+/* ===== Boutons futuristes (Accueil + Historique) ===== */
+
+.navbar-lewagon .navbar-action {
+  padding: 9px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(0,132,255,0.5);
+
+  background: linear-gradient(145deg, #60a5de, #61a3e2);
+
+  color: white !important;
+  font-weight: 600;
+  text-decoration: none;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  transition: all 0.25s ease;
+
+  box-shadow:
+    0 6px 16px rgba(0,132,255,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+.navbar-lewagon .navbar-action:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 24px rgba(0,132,255,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.25);
+
+  background: linear-gradient(145deg, #3b8cff, #0b4dbb);
+}
+
+/* Icône (les 3 traits) */
+.navbar-lewagon .navbar-icon {
+  font-size: 18px;
+  line-height: 1;
+  opacity: 0.95;
 }
