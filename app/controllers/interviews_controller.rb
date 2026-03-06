@@ -1,12 +1,8 @@
 class InterviewsController < ApplicationController
-  SYSTEM_PROMPT = `Tu est mon assistant de test pour embauche. Tu dois   analyser  CV et lien d offre d 'emploie, me poser des questions afin de voir si mon profil correspond a cete offre`
+  SYSTEM_PROMPT = "Tu est mon assistant de test pour embauche. Tu dois   analyser  CV et lien d offre d 'emploie, me poser des questions afin de voir si mon profil correspond a cete offre"
 
   def index
-    @interviews = Interview.all
-  end
-
-  def show
-    @interview = Interview.find(params[:id])
+    @interviews = current_user.interviews
   end
 
   def create
@@ -31,6 +27,12 @@ class InterviewsController < ApplicationController
     @chat = @interview.chats.first # On récupère le chat créé plus haut
     @messages = @chat.messages.order(:created_at)
     @new_message = Message.new # Pour le formulaire d'envoi de message
+  end
+
+  def my_interviews
+    @interviews = Interview.all
+    # @interview_id = Interview.where(User_id: current_user.id)
+    @interviews = current_user.interviews
   end
 
   private

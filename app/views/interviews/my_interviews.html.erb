@@ -1,0 +1,8 @@
+
+<% @interviews.each do |interview| %>
+  <h3><%= interview.job_title %></h3>
+  <% if interview.file.attached? %>
+    <p><%= link_to interview.file.filename, rails_blob_path(interview.file, disposition: "attachment") %>
+  <% end %>
+  <p><%= link_to "job link", interview.job_url %></p>
+<% end %>
