@@ -3,7 +3,7 @@ class Interview < ApplicationRecord
   has_many :chats, dependent: :destroy
   has_many :messages, through: :chats
 
-  has_one_attached :cv
+  has_one_attached :file
 
   STATUSES = %w[pending active completed].freeze
 
